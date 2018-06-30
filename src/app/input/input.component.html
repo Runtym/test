@@ -1,0 +1,47 @@
+<button (click)="clickBtn(1)">클릭해봐</button>
+<br><br>
+<button (click)="clickBtn(-1)">감소해봐</button>
+<div>
+  클릭 횟수 : {{clickCnt}}
+</div>
+<input (keyup)="upKey1($event)">
+<div>
+  1.쓴글 : {{str1}}
+</div>
+
+<input #abc (keyup)="upKey2(abc.value)">
+<div>
+  2.쓴글 : {{str2}}<br>
+  2.쓴글 : {{abc.value}}
+</div>
+
+<h4>계산기</h4>
+<div>
+  num1 : <input #num1 (keyup)='0'> 
+  <select #op>
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="/">/</option>
+      <option value="*">*</option>
+  </select>
+  num2 : <input #num2  (keyup)='0'>
+  <button (click)="sum(num1.value,num2.value,op.value)">계산</button><br>
+  결과값 : {{result==undefinded?0:result}}<br>
+  결과값 : {{(num1.value==''||num2.value=='')?0:parseInt(num1.value)+parseInt(num2.value)}}
+  <br>
+  <select (change)="checkValue($event)">
+    <option value="test1">test1</option>
+    <option value="test2">test2</option>
+    <option value="test3">test3</option>
+  </select><br>
+  <h4>div show and hide</h4>
+  <select #sel (change)='0'>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+  </select><br>
+
+  <div>test1</div>
+  <div *ngIf="parseInt(sel.value)>=2">test2</div>
+  <div *ngIf="parseInt(sel.value)>=3">test3</div>
+</div>

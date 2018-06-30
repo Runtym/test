@@ -1,0 +1,16 @@
+<app-header [title]="headerTitle"></app-header>
+<div>
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/home">Home</button>
+        <button mat-menu-item routerLink="/direct">direct</button>
+        <button mat-menu-item routerLink="/event">event</button>
+        <button mat-menu-item routerLink="/input">input</button>
+        <button mat-menu-item routerLink="/user">user</button>
+    </mat-menu>
+</div>
+
+<div class='container'>
+    <router-outlet></router-outlet>
+</div>
+<app-footer [footerContent]="footerContent"></app-footer>
