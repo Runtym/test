@@ -1,0 +1,21 @@
+<h5>테스트 리스트</h5>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">이름</th>
+        <th scope="col">나이</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let test of testList;index as idx">
+        <tr>
+            <td>{{idx+1}}</td>
+            <td>{{test.name}}</td>
+            <td>{{test.age}}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

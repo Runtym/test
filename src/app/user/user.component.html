@@ -1,3 +1,21 @@
 <p>
   user works!
 </p>
+<div [hidden]="isLogin">
+  아이디 : <input [(ngModel)]="id">
+  비밀번호 : <input [(ngModel)]="pwd" type="password">
+  <button (click)="login()">로그인</button>
+</div>
+<div class="container" [hidden]="!isLogin">
+  <button (click)="logout()">로그아웃</button><br>
+  이름 : <input [(ngModel)]="user.name">
+  나이 : <input [(ngModel)]="user.age">
+  비고 : <input [(ngModel)]="user.etc">
+  <button (click)="insertUser()">유저 추가</button>
+  <button (click)="viewUserList()">유저리스트</button>
+  <ul>
+    <ng-container *ngFor="let user of userList">
+      <li>이름 : {{user.name}}, 나이 : {{user.age}}</li>
+    </ng-container>
+  </ul>
+</div>

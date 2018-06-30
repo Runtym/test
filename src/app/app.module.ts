@@ -14,6 +14,9 @@ import { HomeComponent } from './home/home.component';
 import { ErrorComponent } from './error/error.component';
 import { InputComponent } from './input/input.component';
 import { UserComponent } from './user/user.component';
+import { TestComponent } from './test/test.component';
+import { TestService } from './test/test.service';
+import { JoinComponent } from './join/join.component';
 const routes:Routes = [
   {path:'',component:HomeComponent},
   {path:'home',component:HomeComponent},
@@ -21,7 +24,10 @@ const routes:Routes = [
   {path:'direct',component:DirectComponent},
   {path:'input',component:InputComponent},
   {path:'user',component:UserComponent},
-  {path:'**',component:ErrorComponent}];
+  {path:'test',component:TestComponent},
+  {path:'join',component:JoinComponent},
+  {path:'**',component:ErrorComponent}
+];
 
 @NgModule({
   declarations: [
@@ -33,7 +39,9 @@ const routes:Routes = [
     HomeComponent,
     ErrorComponent,
     InputComponent,
-    UserComponent
+    UserComponent,
+    TestComponent,
+    JoinComponent
   ],
   imports: [
     BrowserModule,
