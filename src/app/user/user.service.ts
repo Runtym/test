@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
   user:User;
   userList:Array<User> = [];
-  constructor() { 
-    for(let i=1;i<=10;i++){
-      this.user = new User({name:'test'+i,age:i});
-      this.userList.push(this.user);
-    }
+  private url:string='http://localhost:3000';
+
+  constructor(protected httpC:HttpClient) {
+  }
+  getUsers():Observable<any>{
+    return this.httpC.get(this.url + '/api/users');
   }
   getUser():User{ 
     return this.user;
@@ -21,12 +24,14 @@ export class UserService {
     this.userList.push(user);
   }
 
-  isLogin(user:User):boolean{
-    if(user.id=='test'){
-      if(user.pwd=='test'){
-        return true;
-      }
-    }
-    return false;
+  isLogin(user:User):Observable<any>{
+    let params = "?id=" + user.id;
+    params += "&pwd=" + user.pwd;
+    console.log(params);
+    return this.httpC.get(this.url + '/api/login'+params);
+  }
+  
+  getList(type:string):Observable<any>{
+    return this.httpC.get(this.url + '/api/list?type=' + type);
   }
 }

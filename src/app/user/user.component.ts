@@ -20,19 +20,34 @@ export class UserComponent implements OnInit {
   constructor(private us:UserService) {
   }
   login():void{
-    this.isLogin = this.us.isLogin(new User({id:this.id,pwd:this.pwd}));
-    if(this.isLogin){
-      alert('로그인에 성공하셨습니다.');
-      this.viewUserList();
-    }else{
-      alert('아이디 비번을 확인해주세요');
-    }
+    this.us.isLogin(new User({id:this.id, pwd:this.pwd})).subscribe(
+      datas=>{
+        this.isLogin = datas.isLogin;
+        if(this.isLogin){
+          alert('로그인에 성공하셨습니다.');
+          this.viewUserList();
+        }else{
+          alert('아이디 비번을 확인해주세요');
+        }
+      },
+      errs=>{
+        console.log(errs);
+      }
+    );
   }
   logout():void{
     this.isLogin = false;
   }
   viewUserList():void{
-    this.userList = this.us.getUserList();
+    this.us.getUsers().subscribe(
+      datas=>{
+        console.log(datas);
+        this.userList = datas;
+      },
+      errs=>{
+        console.log(errs);
+      }
+    )
   }
   insertUser():void{
     this.us.setUser(this.user);
@@ -44,4 +59,17 @@ export class UserComponent implements OnInit {
   ngOnInit() {
   }
 
+  chSelect(event:Event):void{
+    let obj:HTMLInputElement = <HTMLInputElement>event.target;
+    alert(obj.value);
+    this.us.getList(obj.value).subscribe(
+      datas=>{
+        console.log(datas);
+        this.userList = datas[obj.value];
+      },
+      errs=>{
+        console.log(errs);
+      }
+    )
+  }
 }

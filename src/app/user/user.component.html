@@ -13,9 +13,21 @@
   비고 : <input [(ngModel)]="user.etc">
   <button (click)="insertUser()">유저 추가</button>
   <button (click)="viewUserList()">유저리스트</button>
+
+  <select (change)="chSelect($event)">
+    <option value="user">유저리스트</option>
+    <option value="animal">동물리스트</option>
+    <option value="computer">컴퓨터리스트</option>
+  </select>
   <ul>
     <ng-container *ngFor="let user of userList">
       <li>이름 : {{user.name}}, 나이 : {{user.age}}</li>
     </ng-container>
   </ul>
 </div>
+
+
+
+
+
+

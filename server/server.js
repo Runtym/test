@@ -1,16 +1,22 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-app.use(express.static(__dirname + '/dist/ang-boot-app'));
+const head = require('./conf/conf');
+app.use(express.static(__dirname + '/../dist/ang-boot-app'));
 
-app.use(function(req,res,next){
-	res.header('X-Frame-Options','SAMEORIGIN');
-	res.header('Access-Control-Allow-Credentials', true);
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Methods','GET,POST,PUT,DELETE');
-    res.header('Access-Control-Allow-Headers','X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-    next();
+app.use(head.head);
+
+app.get('/api/companies',function(req,res,next){
+    let result = getCompanies();
+    res.json(result);
 });
+function getCompanies(){
+    return [
+        {name:'Samsung',year:1931,address:'Seoul'},
+        {name:'Hyundai',year:1940,address:'Busan'},
+        {name:'LG',year:1988,address:'Kyungkido'}
+    ];
+}
 app.get('/api/list',function(req,res,next){
     let type = req.query.type;
     let list = [];
@@ -64,22 +70,10 @@ app.get('/api/login',function(req,res,next){
     }
     res.json(result);
 });
-//http://localhost:3000/api/users?name=test&num=1
 app.get('/api/users',function(req,res,next){
-    let userList = [
-        {name:'Test1', age:3},
-        {name:'Test2', age:13},
-        {name:'Test3', age:32},
-        {name:'Test4', age:33},
-    ];
-    res.json(userList);
+    res.json(getUsers());
 })
-app.get('/*', function(req,res,next) {
-    console.log(req.method);
-    res.sendFile(path.join(__dirname+'/dist/ang-boot-app/index.html'));
-    next();
-});
-
+app.get('/*', head.html);
 var port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", function() {
     console.log("Listening on Port 3000");
